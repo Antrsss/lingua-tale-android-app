@@ -1,10 +1,12 @@
-- [ ] Update `gradle/libs.versions.toml` with missing versions, libraries, and plugins
-- [ ] Update root `build.gradle.kts` with missing plugin aliases
-- [ ] Update `app/build.gradle.kts`
-    - [ ] Fix plugins block
-    - [ ] Fix `compileSdk` and `targetSdk`
-    - [ ] Migrate hardcoded dependencies to version catalog
-    - [ ] Clean up duplicate dependencies
+- [x] Update `gradle/libs.versions.toml` with missing versions, libraries, and plugins
+- [x] Update root `build.gradle.kts` with missing plugin aliases
+- [/] Update `app/build.gradle.kts`
+    - [x] Fix plugins block (partially)
+    - [x] Fix `compileSdk` and `targetSdk`
+    - [x] Migrate hardcoded dependencies to version catalog
+    - [x] Clean up duplicate dependencies
+    - [ ] Add missing `kotlin-app` plugin
+- [ ] Fix `gradle-wrapper.properties` checksum
 - [ ] Verify build with `./gradlew help`
 - [ ] Run `gradle_sync`
 - [ ] Final check with `analyze_file`

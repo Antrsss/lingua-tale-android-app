@@ -4,21 +4,24 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import dagger.hilt.android.qualifiers.ApplicationContext
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
-import javax.inject.Singleton
+
+enum class DataStoreNames {
+    AUTH, ACCESS_TOKEN, REFRESH_TOKEN
+}
 
 @Singleton
 class TokenDataStore @Inject constructor(
-    @ApplicationContext private val context: Context
+    private val context: Context
 ) {
-    private val Context.dataStore by preferencesDataStore("auth")
+    private val Context.dataStore by preferencesDataStore(DataStoreNames.AUTH.name)
 
     companion object {
-        val ACCESS_TOKEN = stringPreferencesKey("access_token")
-        val REFRESH_TOKEN = stringPreferencesKey("refresh_token")
+        val ACCESS_TOKEN = stringPreferencesKey(DataStoreNames.ACCESS_TOKEN.name)
+        val REFRESH_TOKEN = stringPreferencesKey(DataStoreNames.REFRESH_TOKEN.name)
     }
 
     val accessToken: Flow<String?> = context.dataStore.data

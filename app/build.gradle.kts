@@ -7,12 +7,17 @@ plugins {
 
 android {
     namespace = "com.example.linguatale"
-    compileSdk = 35
+    compileSdk = 37
 
     defaultConfig {
+        buildConfigField("String", "API_BASE_URL",
+            "\"https://your-api-gateway-url.amazonaws.com/\"")
+        buildConfigField("String", "COGNITO_USER_POOL_ID", "eu-central-1_g4tKm6BzV")
+        buildConfigField("String", "COGNITO_CLIENT_ID", "l61sot43rol730perrununa0f")
+
         applicationId = "com.example.linguatale"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 
@@ -32,6 +37,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -76,6 +82,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
+    implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)

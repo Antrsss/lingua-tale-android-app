@@ -1,37 +1,21 @@
-# Fix Gradle warnings and errors in `app/build.gradle.kts`
+# Fix Gradle Wrapper Checksum and Plugin Configuration
 
-The goal is to resolve all compilation errors and lint warnings in `app/build.gradle.kts`. This includes fixing unresolved references to version catalog plugins, updating dependencies to their latest stable versions, and migrating hardcoded versions to the version catalog.
-
-## User Review Required
-
-> [!IMPORTANT]
-> - I will be updating `compileSdk` and `targetSdk` to 35 (Android 15), as 36 appears to be a preview version and the current `release(36)` block is syntactically incorrect for standard Android projects.
-> - I will be updating Kotlin to 2.1.0 and Hilt to 2.52 (or latest stable) to ensure compatibility.
+The goal is to resolve the Gradle distribution checksum mismatch and ensure all plugins are correctly applied in the `app` module.
 
 ## Proposed Changes
 
-### Build Configuration
+### Gradle Wrapper
 
-#### [MODIFY] [libs.versions.toml](file:///home/zgdasha/AndroidStudioProjects/LinguaTale/gradle/libs.versions.toml)
-- Add missing versions: `navigation`, `lifecycle`, `hilt`, `ksp`, `aws`.
-- Add missing libraries: `androidx-navigation-compose`, `androidx-lifecycle-viewmodel-compose`, `androidx-lifecycle-runtime-compose`, `hilt-android`, `hilt-compiler`, `androidx-hilt-navigation-compose`, `aws-cognito-identity-provider`.
-- Add missing plugins: `kotlin-android`, `hilt`, `ksp`.
-- Update existing versions to latest stable.
+#### [MODIFY] [gradle-wrapper.properties](file:///home/zgdasha/AndroidStudioProjects/LinguaTale/gradle/wrapper/gradle-wrapper.properties)
+- Update `distributionSha256Sum` to `9c0f7faeeb306cb14e4279a3e084ca6b596894089a0638e68a07c945a32c9e14` for Gradle 9.6.1.
 
-#### [MODIFY] [build.gradle.kts](file:///home/zgdasha/AndroidStudioProjects/LinguaTale/build.gradle.kts)
-- Add missing plugin aliases in the root `plugins` block.
+### App Module Build Configuration
 
 #### [MODIFY] [app/build.gradle.kts](file:///home/zgdasha/AndroidStudioProjects/LinguaTale/app/build.gradle.kts)
-- Fix `compileSdk` and `targetSdk` configuration.
-- Migrate all hardcoded dependencies to use `libs` (version catalog).
-- Remove duplicate Compose BOM declaration.
-- Ensure all plugins are correctly aliased from `libs`.
+- Add `alias(libs.plugins.kotlin.app)` to the `plugins` block to ensure the Kotlin Android plugin is applied.
 
 ## Verification Plan
 
 ### Automated Tests
-- Run `./gradlew help` to verify that the build scripts compile correctly.
-- Run `gradle_sync` to ensure the IDE recognizes the changes.
-
-### Manual Verification
-- Verify that `analyze_file` on `app/build.gradle.kts` no longer reports errors.
+- Run `gradle_sync` to verify the new Gradle distribution is accepted and the project syncs successfully.
+- Run `./gradlew help` to verify build script compilation.
