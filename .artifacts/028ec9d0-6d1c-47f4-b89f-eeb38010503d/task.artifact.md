@@ -1,0 +1,10 @@
+- [ ] Update `gradle/libs.versions.toml` with missing versions, libraries, and plugins
+- [ ] Update root `build.gradle.kts` with missing plugin aliases
+- [ ] Update `app/build.gradle.kts`
+    - [ ] Fix plugins block
+    - [ ] Fix `compileSdk` and `targetSdk`
+    - [ ] Migrate hardcoded dependencies to version catalog
+    - [ ] Clean up duplicate dependencies
+- [ ] Verify build with `./gradlew help`
+- [ ] Run `gradle_sync`
+- [ ] Final check with `analyze_file`
